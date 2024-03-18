@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <title>نموذج معلومات الطالب</title>
+    <script>
+        function validateForm() {
+            var classInput = document.forms["studentInfoForm"]["class"].value;
+            var subclassInput = document.forms["studentInfoForm"]["subclass"].value;
+            var nameInput = document.forms["studentInfoForm"]["studentName"].value.trim();
+            
+            if (classInput == "" || subclassInput == "" || nameInput == "") {
+                alert("يجب ملء جميع الحقول قبل الإرسال.");
+                return false;
+            }
+            
+            // Construct the email body using form data
+            var emailBody = 'Class: ' + classInput + '%0D%0A' +
+                            'Subclass: ' + subclassInput + '%0D%0A' +
+                            'Student Name(s): ' + encodeURIComponent(nameInput).replace(/%0D%0A/g, '\n');
+                            
+            // Set the href for the email link
+            document.getElementById('emailLink').href = 
+                "mailto:maryam532@moe.om?subject=Student Information Submission" + "&body=" + emailBody;
+            
+            // Trigger the email client to open
+            document.getElementById('emailLink').click();
+            
+            return false; // Prevent normal form submission
+        }
+    </script>
+    <style>
+        textarea {
+            width: 100%;
+            height: 150px;
+            padding: 10px;
+            box-sizing: border-box;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<h2>نموذج معلومات الطالب</h2>
+
+<form name="studentInfoForm" onsubmit="return validateForm()">
+    <label for="class">الصف:</label><br>
+    <select id="class" name="class">
+        <option value="">اختر الصف</option>
+        <option value="Class1">الصف 1</option>
+        <option value="Class2">الصف 2</option>
+        <option value="Class3">الصف 3</option>
+        <option value="Class4">الصف 4</option>
+    </select><br><br>
+    
+    <label for="subclass">الفصل الدراسي:</label><br>
+    <select id="subclass" name="subclass">
+        <option value="">اختر الفصل الدراسي</option>
+        <option value="Subclass1">فصل 1</option>
+        <option value="Subclass2">فصل 2</option>
+        <option value="Subclass3">فصل 3</option>
+        <option value="Subclass4">فصل 4</option>
+        <option value="Subclass5">فصل 5</option>
+        <option value="Subclass6">فصل 6</option>
+        <option value="Subclass7">فصل 7</option>
+        <option value="Subclass8">فصل 8</option>
+        <option value="Subclass9">فصل 9</option>
+    </select><br><br>
+    
+    <label for="studentName">اسم الطالب:</label><br>
+    <textarea id="studentName" name="studentName"></textarea><br><br>
+    
+    <input type="submit" value="إرسال">
+</form>
+
+<!-- Hidden link for sending email, it will be triggered by JavaScript -->
+<a id="emailLink" href="#" style="display:none;"></a>
+
+</body>
+</html>
